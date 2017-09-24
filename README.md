@@ -1,5 +1,4 @@
-# FPGA
-Numerical control pulse width pulse signal generator
+# Numerical control pulse width pulse signal generator
 
 本设计采用EDA技术，通过FPGA芯片实现了数控脉宽脉冲信号发生器的设计。
 通过模100加法计数器、模100加减计数器、8位比较器、译码器来实现本设计。
