@@ -1,0 +1,51 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--USE ieee.numeric_std.ALL;
+ 
+ENTITY YIMAQI8_test IS
+END YIMAQI8_test;
+ 
+ARCHITECTURE behavior OF YIMAQI8_test IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT YIMAQI8
+    PORT(
+         DIN : IN  std_logic_vector(7 downto 0);
+         DOUT : OUT  std_logic_vector(13 downto 0)
+        );
+    END COMPONENT;
+    
+
+   --Inputs
+   signal DIN : std_logic_vector(7 downto 0) := (others => '0');
+
+ 	--Outputs
+   signal DOUT : std_logic_vector(13 downto 0);
+   -- No clocks detected in port list. Replace <clock> below with 
+   -- appropriate port name 
+
+ 
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: YIMAQI8 PORT MAP (
+          DIN => DIN,
+          DOUT => DOUT
+        );
+
+   -- Clock process definitions
+ 
+
+   -- Stimulus process
+   stim_proc: process
+   begin		
+      -- hold reset state for 100 ns.
+      wait for 20 ns;	
+      DIN <= "00110000";
+      wait;
+   end process;
+END;

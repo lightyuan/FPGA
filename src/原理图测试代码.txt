@@ -1,0 +1,62 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+LIBRARY UNISIM;
+USE UNISIM.Vcomponents.ALL;
+ENTITY dyna5_dyna5_sch_tb IS
+END dyna5_dyna5_sch_tb;
+ARCHITECTURE behavioral OF dyna5_dyna5_sch_tb IS 
+
+   COMPONENT dyna5
+   PORT( XLXN_4	:	IN	STD_LOGIC; 
+          XLXN_5	:	IN	STD_LOGIC; 
+          XLXN_6	:	IN	STD_LOGIC; 
+          XLXN_7	:	IN	STD_LOGIC; 
+          XLXN_8	:	IN	STD_LOGIC; 
+          XLXN_9	:	OUT	STD_LOGIC; 
+          XLXN_10	:	OUT	STD_LOGIC_VECTOR (13 DOWNTO 0));
+   END COMPONENT;
+
+   SIGNAL XLXN_4	:	STD_LOGIC;
+   SIGNAL XLXN_5	:	STD_LOGIC;
+   SIGNAL XLXN_6	:	STD_LOGIC;
+   SIGNAL XLXN_7	:	STD_LOGIC;
+   SIGNAL XLXN_8	:	STD_LOGIC;
+   SIGNAL XLXN_9	:	STD_LOGIC;
+   SIGNAL XLXN_10	:	STD_LOGIC_VECTOR (13 DOWNTO 0);
+CONSTANT CLK_PERIOD : TIME := 10 NS;
+BEGIN
+
+   UUT: dyna5 PORT MAP(
+		XLXN_4 => XLXN_4, 
+		XLXN_5 => XLXN_5, 
+		XLXN_6 => XLXN_6, 
+		XLXN_7 => XLXN_7, 
+		XLXN_8 => XLXN_8, 
+		XLXN_9 => XLXN_9, 
+		XLXN_10 => XLXN_10
+   );
+
+-- *** Test Bench - User Defined Section ***
+   CLK_PROCESS : PROCESS
+     BEGIN
+          XLXN_5 <= '0';
+          WAIT FOR CLK_PERIOD/2;
+          XLXN_5 <= '1';
+          WAIT FOR CLK_PERIOD/2;
+     END PROCESS;
+   tb : PROCESS
+   BEGIN
+          XLXN_4 <= '1';
+          XLXN_6 <= '1';
+          XLXN_7 <= '0';
+          XLXN_8 <= '0';
+          WAIT FOR 20 NS;
+          XLXN_4 <= '0';
+          XLXN_6 <= '0';
+          XLXN_7 <= '1';
+          WAIT FOR 20 NS;
+          XLXN_8 <= '1';
+          WAIT;
+     END PROCESS;
+END;

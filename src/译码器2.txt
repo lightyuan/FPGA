@@ -1,0 +1,10 @@
+library ieee;
+use ieee.std_logic_1164.all;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+entity YIMAQI8 is port (DIN : in std_logic_vector(7 DOWNTO 0);
+							DOUT : out std_logic_vector(7 downto 0));
+end YIMAQI8;
+architecture behavioral of YIMAQI8 is
+begin
+	DOUT(7 DOWNTO 0) <= DIN(7 DOWNTO 0);
+end;

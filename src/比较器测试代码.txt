@@ -1,0 +1,57 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--USE ieee.numeric_std.ALL;
+ 
+ENTITY COMPAREL_test IS
+END COMPAREL_test;
+ 
+ARCHITECTURE behavior OF COMPAREL_test IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT compare1
+    PORT(
+         A : IN  std_logic_vector(7 downto 0);
+         B : IN  std_logic_vector(7 downto 0);
+         C : OUT  std_logic
+        );
+    END COMPONENT;
+    
+
+   --Inputs
+   signal A : std_logic_vector(7 downto 0) := (others => '0');
+   signal B : std_logic_vector(7 downto 0) := (others => '0');
+
+ 	--Outputs
+   signal C : std_logic;
+   -- No clocks detected in port list. Replace <clock> below with 
+   -- appropriate port name 
+ 
+ 
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: compare1 PORT MAP (
+          A => A,
+          B => B,
+          C => C
+        );
+
+ 
+
+   -- Stimulus process
+   stim_proc: process
+   begin		
+      -- hold reset state for 100 ns.
+		A <= "00000010";
+		B <= "00001000";
+      wait for 100 ns;	
+ 		A <= "00010010";
+		B <= "00000100";     
+      wait;
+   end process;
+
+END;

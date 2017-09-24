@@ -1,0 +1,66 @@
+library ieee;
+use ieee.std_logic_1164.ALL;
+use ieee.numeric_std.ALL;
+library UNISIM;
+use UNISIM.Vcomponents.ALL;
+
+entity dyna7 is
+   port ( XLXN_4  : in    std_logic; 
+          XLXN_5  : in    std_logic; 
+          XLXN_6  : in    std_logic; 
+          XLXN_7  : in    std_logic; 
+          XLXN_8  : in    std_logic; 
+          XLXN_9  : out   std_logic_vector (7 downto 0); 
+          XLXN_10 : out   std_logic);
+end dyna7;
+
+architecture BEHAVIORAL of dyna7 is
+   signal XLXN_1  : std_logic_vector (7 downto 0);
+   signal XLXN_2  : std_logic_vector (7 downto 0);
+   component JSQ
+      port ( RESET    : in    std_logic; 
+             CLK1HZ   : in    std_logic; 
+             COUNTER1 : out   std_logic_vector (7 downto 0));
+   end component;
+   
+   component YIMAQI8
+      port ( DIN  : in    std_logic_vector (7 downto 0); 
+             DOUT : out   std_logic_vector (7 downto 0));
+   end component;
+   
+   component compare1
+      port ( A : in    std_logic_vector (7 downto 0); 
+             B : in    std_logic_vector (7 downto 0); 
+             C : out   std_logic);
+   end component;
+   
+   component counter
+      port ( RESET    : in    std_logic; 
+             UP       : in    std_logic; 
+             CLK1HZ   : in    std_logic; 
+             COUNTER1 : out   std_logic_vector (7 downto 0));
+   end component;
+   
+begin
+   XLXI_1 : JSQ
+      port map (CLK1HZ=>XLXN_8,
+                RESET=>XLXN_7,
+                COUNTER1(7 downto 0)=>XLXN_2(7 downto 0));
+   
+   XLXI_2 : YIMAQI8
+      port map (DIN(7 downto 0)=>XLXN_1(7 downto 0),
+                DOUT(7 downto 0)=>XLXN_9(7 downto 0));
+   
+   XLXI_3 : compare1
+      port map (A(7 downto 0)=>XLXN_1(7 downto 0),
+                B(7 downto 0)=>XLXN_2(7 downto 0),
+                C=>XLXN_10);
+   
+   XLXI_4 : counter
+      port map (CLK1HZ=>XLXN_6,
+                RESET=>XLXN_4,
+                UP=>XLXN_5,
+                COUNTER1(7 downto 0)=>XLXN_1(7 downto 0));
+   
+end BEHAVIORAL;
+

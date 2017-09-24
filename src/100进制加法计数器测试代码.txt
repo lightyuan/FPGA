@@ -1,0 +1,66 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--USE ieee.numeric_std.ALL;
+ 
+ENTITY JSQ_test IS
+END JSQ_test;
+ 
+ARCHITECTURE behavior OF JSQ_test IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT JSQ
+    PORT(
+         RESET : IN  std_logic;
+         CLK1HZ : IN  std_logic;
+         COUNTER1 : OUT  std_logic_vector(7 downto 0)
+        );
+    END COMPONENT;
+    
+
+   --Inputs
+   signal RESET : std_logic := '0';
+   signal CLK1HZ : std_logic := '0';
+
+ 	--Outputs
+   signal COUNTER1 : std_logic_vector(7 downto 0);
+
+   -- Clock period definitions
+   constant CLK1HZ_period : time := 10 ns;
+ 
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: JSQ PORT MAP (
+          RESET => RESET,
+          CLK1HZ => CLK1HZ,
+          COUNTER1 => COUNTER1
+        );
+
+   -- Clock process definitions
+   CLK1HZ_process :process
+   begin
+		CLK1HZ <= '0';
+		wait for CLK1HZ_period/2;
+		CLK1HZ <= '1';
+		wait for CLK1HZ_period/2;
+   end process;
+ 
+
+   -- Stimulus process
+   stim_proc: process
+   begin		
+      -- hold reset state for 100 ns.
+		RESET <= '1';
+      wait for 20 ns;
+		RESET <= '0';
+
+      -- insert stimulus here 
+
+      wait;
+   end process;
+
+END;

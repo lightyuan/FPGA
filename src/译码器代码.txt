@@ -1,0 +1,53 @@
+library ieee;
+use ieee.std_logic_1164.all;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+entity YIMAQI8 is port (DIN : in std_logic_vector(7 DOWNTO 0);
+							DOUT : out std_logic_vector(13 downto 0));
+end YIMAQI8;
+architecture behavioral of YIMAQI8 is
+signal DINH4: std_logic_vector(3 DOWNTO 0);
+signal DINL4: std_logic_vector(3 DOWNTO 0);
+signal DOUTH7: std_logic_vector(6 DOWNTO 0);
+signal DOUTL7: std_logic_vector(6 DOWNTO 0);
+begin
+		DINH4(3 DOWNTO 0) <= DIN(7 DOWNTO 4);
+		DINL4(3 DOWNTO 0) <= DIN(3 DOWNTO 0);
+     with DINH4 select
+	       DOUTH7 <= "0111111" when "0000",
+			         "0000110" when "0001",
+						"1011011" when "0010",
+						"1001111" when "0011",
+						"1100110" when "0100",
+						"1101101" when "0101",
+						"1111101" when "0110",
+						"0000111" when "0111",
+						"1111111" when "1000",
+						"1101111" when "1001",
+						"1110111" when "1010",
+						"1111100" when "1011",
+						"1011110" when "1100",
+						"1111001" when "1101",
+						"1110001" when "1110",
+						"0111111" when "1111",
+						"0000000" when others;
+		with DINL4 select
+	       DOUTL7 <= "0111111" when "0000",
+			         "0000110" when "0001",
+						"1011011" when "0010",
+						"1001111" when "0011",
+						"1100110" when "0100",
+						"1101101" when "0101",
+						"1111101" when "0110",
+						"0000111" when "0111",
+						"1111111" when "1000",
+						"1101111" when "1001",
+						"1110111" when "1010",
+						"1111100" when "1011",
+						"1011110" when "1100",
+						"1111001" when "1101",
+						"1110001" when "1110",
+						"0111111" when "1111",
+						"0000000" when others;
+		DOUT(13 DOWNTO 7) <= DOUTH7(6 DOWNTO 0);
+		DOUT(6 DOWNTO 0) <= DOUTL7(6 DOWNTO 0);
+end;

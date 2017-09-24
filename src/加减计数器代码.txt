@@ -1,0 +1,61 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_ARITH.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity counter is
+    Port ( RESET : in  STD_LOGIC;
+           UP : in  STD_LOGIC;
+           CLK1HZ : in  STD_LOGIC;
+           COUNTER1 : out  STD_LOGIC_VECTOR (7 downto 0));
+end counter;
+
+architecture Behavioral of counter is
+SIGNAL COUNT:STD_LOGIC_VECTOR(7 DOWNTO 0);
+begin
+PROCESS(CLK1HZ,RESET,UP)
+ BEGIN
+ 
+ IF RESET='1' THEN
+    COUNT<="01010000";
+	 ELSE
+	 
+	 IF CLK1HZ'EVENT AND CLK1HZ='1' THEN
+	 
+	   IF UP='1' THEN
+		  IF COUNT(3 DOWNTO 0)="1001" THEN
+		  COUNT(3 DOWNTO 0)<="0000";
+		  IF COUNT(7 DOWNTO 4)="1001" THEN
+		  COUNT(7 DOWNTO 4)<="0000";
+		 ELSE
+		     COUNT(7 DOWNTO 4)<=COUNT(7 DOWNTO 4)+1;
+			  END IF;
+	ELSE
+	  COUNT(3 DOWNTO 0)<=COUNT(3 DOWNTO 0)+1;
+			  END IF;
+   ELSE
+	      IF COUNT(3 DOWNTO 0)="0000" THEN
+		  COUNT(3 DOWNTO 0)<="1001";
+		  IF COUNT(7 DOWNTO 4)="0000" THEN
+		  COUNT(7 DOWNTO 4)<="1001";
+		 ELSE
+		     COUNT(7 DOWNTO 4)<=COUNT(7 DOWNTO 4)-1;
+			  END IF;
+	ELSE
+	  COUNT(3 DOWNTO 0)<=COUNT(3 DOWNTO 0)-1;
+			  END IF;
+			  END IF;
+END IF;
+END IF;
+END PROCESS;
+COUNTER1<=COUNT;
+end Behavioral;
